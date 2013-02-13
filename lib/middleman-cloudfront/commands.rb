@@ -60,8 +60,8 @@ module Middleman
           # if :directory_indexes is active, we must invalidate both files and dirs
           files += files.map{|f| f.gsub(/\/index\.html$/, '/') }
           files.uniq!
-            .map!    { |f| f.start_with?('/') ? f : "/#{f}" }
-            .reject! { |f| not filter =~ f }
+          files.map!    { |f| f.start_with?('/') ? f : "/#{f}" }
+          files.reject! { |f| not filter =~ f }
 
           files
         end
