@@ -2,7 +2,7 @@ require 'middleman-core'
 
 module Middleman
   module CloudFront
-    class Options < Struct.new(:access_key_id, :secret_access_key, :distribution_id, :after_build); end
+    class Options < Struct.new(:access_key_id, :secret_access_key, :distribution_id, :filter, :after_build); end
 
     class << self
       def options
@@ -14,6 +14,7 @@ module Middleman
         yield options  if block_given?
 
         options.after_build ||= false
+        options.filter      ||= /.*/
 
         app.after_build do
           ::Middleman::Cli::CloudFront.new.invalidate  if options.after_build

@@ -4,6 +4,7 @@ Some of its features are:
 
 * CloudFront cache invalidation;  
 * Ability to call it from command line and after middleman build;  
+* Ability to filter files which are going to be invalidated by regex;  
 
 # Usage
 andrusha/middleman-cloudfront
@@ -27,7 +28,8 @@ activate :cloudfront do |cf|
   cf.access_key_id = 'I'
   cf.secret_access_key = 'love'
   cf.distribution_id = 'cats'
-  # cf.after_build = false
+  # cf.filter = /\.html$/i  # default is /.*/
+  # cf.after_build = false  # default is false
 end
 ```
 

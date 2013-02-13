@@ -28,7 +28,7 @@ module Middleman
         distribution = cdn.distributions.get options.distribution_id
 
         # CloudFront limits amount of files which can be invalidated by one request
-        list_files.each_slice(1000) do |slice|
+        list_files(options.filter).each_slice(1000) do |slice|
           puts "Please wait while Cloudfront is reloading #{slice.length} paths, it might take up to 10 minutes"
           invalidation = distribution.invalidations.create :paths => slice
           invalidation.wait_for { ready? }
@@ -48,17 +48,22 @@ module Middleman
             cf.access_key_id = 'I'
             cf.secret_access_key = 'love'
             cf.distribution_id = 'cats'
+            cf.filter = /\.html/i  # default /.*/
             cf.after_build = true  # default is false
           end
         EOF
       end
 
-      def list_files
+      def list_files(filter)
         Dir.chdir('build/') do
           files = Dir.glob('**/*', File::FNM_DOTMATCH).reject { |f| File.directory? f }
           # if :directory_indexes is active, we must invalidate both files and dirs
           files += files.map{|f| f.gsub(/\/index\.html$/, '/') }
-          files.uniq!.map! { |f| f.start_with?('/') ? f : "/#{f}" }
+          files.uniq!
+            .map!    { |f| f.start_with?('/') ? f : "/#{f}" }
+            .reject! { |f| not filter =~ f }
+
+          files
         end
       end
 
