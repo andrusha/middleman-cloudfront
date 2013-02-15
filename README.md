@@ -45,5 +45,37 @@ Otherwise you should run it through commandline interface like so:
 bundle exec middleman invalidate
 ```
 
-# Notes
-Inspired by [middleman-deploy](https://github.com/tvaughan/middleman-deploy) and [middleman-aws-deploy](https://github.com/coderoshi/middleman-aws-deploy).
+## S3 + Cloudfront deploying
+
+In real world this gem shouldn't be used alone, but as a part of your 
+deployment solution. As for me I use it with [cloudfront-sync](https://github.com/karlfreeman/middleman-sync) and my configuration file looks like this:
+
+```ruby
+configure :build do
+  # so there would be no need in invalidationg css-js files on cdn
+  activate :asset_hash
+end
+
+activate :sync do |sync|
+  sync.fog_provider = 'AWS'
+  sync.fog_directory = '...'
+  sync.fog_region = 'us-west-1'
+  sync.aws_access_key_id = ENV['AWS_ACCESS_KEY']
+  sync.aws_secret_access_key = ENV['AWS_SECRET']
+  sync.existing_remote_files = 'delete'
+  sync.gzip_compression = true
+end
+
+activate :cloudfront do |cf|
+  cf.access_key_id = ENV['AWS_ACCESS_KEY']
+  cf.secret_access_key = ENV['AWS_SECRET']
+  cf.distribution_id = '...'
+  cf.filter = /\.html$/i
+end
+```
+
+And when I want to deploy my site I do:
+```bash
+AWS_ACCESS_KEY= AWS_SECRET= bundle exec middleman sync
+AWS_ACCESS_KEY= AWS_SECRET= bundle exec middleman invalidate
+```
