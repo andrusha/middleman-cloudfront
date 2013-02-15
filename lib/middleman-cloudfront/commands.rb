@@ -38,7 +38,7 @@ module Middleman
       protected
 
       def options
-        ::Middleman::Application.server.inst.options
+        ::Middleman::Application.server.inst.cloudfront_options
       rescue
         raise Error, <<-EOF.lines.map(&:strip).join("\n")
           ERROR: You need to activate the cloudfront extension in config.rb.
@@ -69,6 +69,6 @@ module Middleman
 
     end
 
-    Base.map({"inv" => "cloudfront:invalidate"})
+    Base.map({"inv" => "invalidate"})
   end
 end

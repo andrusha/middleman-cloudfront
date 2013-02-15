@@ -6,7 +6,7 @@ module Middleman
 
     class << self
       def options
-        @@options
+        @@cloudfront_options
       end
 
       def registered(app, options_hash = {}, &block)
@@ -20,14 +20,14 @@ module Middleman
           ::Middleman::Cli::CloudFront.new.invalidate  if options.after_build
         end
 
-        @@options = options
+        @@cloudfront_options = options
         app.send :include, Helpers
       end
       alias :included :registered
     end
 
     module Helpers
-      def options
+      def cloudfront_options
         ::Middleman::CloudFront.options
       end
     end
