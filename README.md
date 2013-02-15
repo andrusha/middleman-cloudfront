@@ -7,7 +7,6 @@ Some of its features are:
 * Ability to filter files which are going to be invalidated by regex;  
 
 # Usage
-andrusha/middleman-cloudfront
 
 ## Installation
 Add this to `Gemfile`:  
