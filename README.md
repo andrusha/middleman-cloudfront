@@ -7,7 +7,6 @@ Some of its features are:
 * Ability to filter files which are going to be invalidated by regex;  
 
 # Usage
-andrusha/middleman-cloudfront
 
 ## Installation
 Add this to `Gemfile`:  
@@ -48,7 +47,7 @@ bundle exec middleman invalidate
 ## S3 + Cloudfront deploying
 
 In real world this gem shouldn't be used alone, but as a part of your 
-deployment solution. As for me I use it with [cloudfront-sync](https://github.com/karlfreeman/middleman-sync) and my configuration file looks like this:
+deployment solution. As for me I use it with [middleman-sync](https://github.com/karlfreeman/middleman-sync) and my configuration file looks like this:
 
 ```ruby
 configure :build do
