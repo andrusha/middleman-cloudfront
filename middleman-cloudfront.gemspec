@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -z -- {fixtures,features}/*`.split("\0")
   s.require_paths = ["lib"]
 
-  s.add_dependency "middleman-core", ["~> 3.0.0"]
-  s.add_dependency "fog", ["~> 1.9.0"]
+  s.add_dependency "middleman-core", ["~> 3.0"]
+  s.add_dependency "fog", ["~> 1.9"]
 
   s.add_development_dependency "rake"
   s.add_development_dependency "cucumber"
