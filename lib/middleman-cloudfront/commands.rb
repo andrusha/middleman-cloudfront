@@ -56,14 +56,22 @@ module Middleman
 
       def list_files(filter)
         Dir.chdir('build/') do
-          files = Dir.glob('**/*', File::FNM_DOTMATCH).reject { |f| File.directory? f }
-          # if :directory_indexes is active, we must invalidate both files and dirs
-          files += files.map{|f| f.gsub(/\/index\.html$/, '/') }
-          files.uniq!
-          files.map!    { |f| f.start_with?('/') ? f : "/#{f}" }
-          files.reject! { |f| not filter =~ f }
+          Dir.glob('**/*', File::FNM_DOTMATCH).tap do |files|
+            # Remove directories
+            files.reject! { |f| File.directory?(f) }
 
-          files
+            # Remove files that do not match filter
+            files.reject! { |f| f !~ filter }
+
+            # Add directories of index.html files since they have to be
+            # invalidated as well if :directory_indexes is active
+            index_files = files.select { |f| f =~ %r(/index\.html\z) }
+            index_file_dirs = index_files.map { |f| f[%r((.+)index\.html\z), 1] }
+            files.concat index_file_dirs
+
+            # Add leading slash
+            files.map! { |f| f.start_with?('/') ? f : "/#{f}" }
+          end
         end
       end
 
