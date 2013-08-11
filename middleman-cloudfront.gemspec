@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = Middleman::CloudFront::PACKAGE
   s.version     = Middleman::CloudFront::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Andrey Korzhuev"]
+  s.authors     = ["Andrey Korzhuev", "Manuel Meurer"]
   s.email       = ["andrew@korzhuev.com"]
   s.homepage    = "https://github.com/andrusha/middleman-cloudfront"
   s.summary     = %q{Invalidate CloudFront cache after deployment to S3}
