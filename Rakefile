@@ -1,3 +1,5 @@
+require 'rspec/core/rake_task'
+
 require 'bundler'
 Bundler::GemHelper.install_tasks
 
@@ -8,8 +10,6 @@ Cucumber::Rake::Task.new(:cucumber, 'Run features that should pass') do |t|
 end
 
 require 'rake/clean'
-
-task :test => ["cucumber"]
 
 require "middleman-cloudfront/pkg-info"
 
@@ -32,4 +32,6 @@ task :release => :package do
   end
 end
 
-task :default => :test
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
