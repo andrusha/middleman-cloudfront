@@ -26,4 +26,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "aruba"
   s.add_development_dependency "fivemat"
   s.add_development_dependency "simplecov"
+  s.add_development_dependency 'guard-rspec', '~> 3.0.3'
 end
