@@ -55,4 +55,21 @@ describe Middleman::Cli::CloudFront do
       end
     end
   end
+
+  describe '#list_files' do
+    before do
+      Dir.should_receive(:chdir).and_yield
+    end
+
+    it 'includes root path if build/index.html is present' do
+      Dir.stub(:glob).and_return(['.', 'index.html'])
+      expect( cloudfront.send(:list_files, /.*/) ).to eq(['/index.html', '/'])
+    end
+
+    it "doesn't include root path when build/index.html not present" do
+      Dir.stub(:glob).and_return(['.', 'test.html', 'test/index.html'])
+      expect( cloudfront.send(:list_files, /.*/) ).to eq(
+        ['/test.html', '/test/index.html', '/test/'])
+    end
+  end
 end

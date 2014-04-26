@@ -83,6 +83,9 @@ module Middleman
             index_file_dirs = index_files.map { |f| f[%r((.+)index\.html\z), 1] }
             files.concat index_file_dirs
 
+            # Add root path if build/index.html is present
+            files.push '/' if files.include?('index.html') && !files.include?('/')
+
             # Add leading slash
             files.map! { |f| f.start_with?('/') ? f : "/#{f}" }
           end
