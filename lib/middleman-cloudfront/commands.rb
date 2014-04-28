@@ -81,9 +81,10 @@ TEXT
 
             # Add directories of index.html files since they have to be
             # invalidated as well if :directory_indexes is active
-            index_files = files.select { |f| f =~ %r(/index\.html\z) }
-            index_file_dirs = index_files.map { |f| f[%r((.+)index\.html\z), 1] }
-            files.concat index_file_dirs
+            files.each do |file|
+              file_dir = file.sub(/\bindex\.html\z/, '')
+              files << file_dir if file_dir != file
+            end
 
             # Add leading slash
             files.map! { |f| f.start_with?('/') ? f : "/#{f}" }
