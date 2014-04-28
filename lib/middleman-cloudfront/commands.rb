@@ -86,6 +86,9 @@ TEXT
               files << file_dir if file_dir != file
             end
 
+            # Add root path if build/index.html is present
+            files.push '/' if files.include?('index.html') && !files.include?('/')
+
             # Add leading slash
             files.map! { |f| f.start_with?('/') ? f : "/#{f}" }
           end
