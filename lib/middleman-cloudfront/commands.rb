@@ -56,18 +56,18 @@ module Middleman
       def options
         ::Middleman::Application.server.inst.cloudfront_options
       rescue
-        raise Error, <<-EOF.lines.map(&:strip).join("\n")
-          ERROR: You need to activate the cloudfront extension in config.rb.
+        raise Error, <<-TEXT
+ERROR: You need to activate the cloudfront extension in config.rb.
 
-          The example configuration is:
-          activate :cloudfront do |cf|
-            cf.access_key_id = 'I'
-            cf.secret_access_key = 'love'
-            cf.distribution_id = 'cats'
-            cf.filter = /\.html/i  # default /.*/
-            cf.after_build = true  # default is false
-          end
-        EOF
+The example configuration is:
+activate :cloudfront do |cf|
+  cf.access_key_id = 'I'
+  cf.secret_access_key = 'love'
+  cf.distribution_id = 'cats'
+  cf.filter = /\.html/i  # default /.*/
+  cf.after_build = true  # default is false
+end
+TEXT
       end
 
       def list_files(filter)
