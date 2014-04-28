@@ -33,6 +33,8 @@ module Middleman
         # If there are more than 1000 files to invalidate, do so sequentially and wait until each validation is ready.
         # If there are max 1000 files, create the invalidation and return immediately.
         files = list_files(options.filter)
+        return if files.empty?
+
         if files.count <= INVALIDATION_LIMIT
           puts "Invalidating #{files.count} files. It might take 10 to 15 minutes until all files are invalidated."
           puts 'Please check the AWS Management Console to see the status of the invalidation.'
