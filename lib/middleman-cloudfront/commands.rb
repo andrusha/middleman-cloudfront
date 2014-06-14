@@ -19,7 +19,11 @@ module Middleman
       end
 
       desc "cloudfront:invalidate", "A way to deal with your ClodFront distributions"
-      def invalidate
+      def invalidate(options)
+        [:access_key_id, :secret_access_key, :distribution_id, :filter].each do |key|
+          raise StandardError, "Configuration key #{key} is missing." if options.public_send(key).nil?
+        end
+
         puts "## Invalidating files on CloudFront"
         cdn = Fog::CDN.new({
           :provider               => 'AWS',
@@ -52,23 +56,6 @@ module Middleman
       end
 
       protected
-
-      def options
-        ::Middleman::Application.server.inst.cloudfront_options
-      rescue
-        raise Error, <<-TEXT
-ERROR: You need to activate the cloudfront extension in config.rb.
-
-The example configuration is:
-activate :cloudfront do |cf|
-  cf.access_key_id = 'I'
-  cf.secret_access_key = 'love'
-  cf.distribution_id = 'cats'
-  cf.filter = /\.html/i  # default /.*/
-  cf.after_build = true  # default is false
-end
-TEXT
-      end
 
       def list_files(filter)
         Dir.chdir('build/') do

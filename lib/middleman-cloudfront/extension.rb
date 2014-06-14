@@ -17,7 +17,7 @@ module Middleman
         options.filter      ||= /.*/
 
         app.after_build do
-          ::Middleman::Cli::CloudFront.new.invalidate  if options.after_build
+          ::Middleman::Cli::CloudFront.new.invalidate(options) if options.after_build
         end
 
         @@cloudfront_options = options
