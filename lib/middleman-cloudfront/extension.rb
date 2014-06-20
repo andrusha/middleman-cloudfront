@@ -10,17 +10,13 @@ module Middleman
       end
 
       def registered(app, options_hash = {}, &block)
-        options = Options.new options_hash
-        yield options  if block_given?
-
-        options.after_build ||= false
-        options.filter      ||= /.*/
+        @@cloudfront_options = Options.new(options_hash)
+        yield @@cloudfront_options if block_given?
 
         app.after_build do
-          ::Middleman::Cli::CloudFront.new.invalidate(options) if options.after_build
+          ::Middleman::Cli::CloudFront.new.invalidate(@@cloudfront_options) if @@cloudfront_options.after_build
         end
 
-        @@cloudfront_options = options
         app.send :include, Helpers
       end
       alias :included :registered
