@@ -1,9 +1,12 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "middleman-cloudfront/pkg-info"
+
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'middleman-cloudfront/version'
 
 Gem::Specification.new do |s|
-  s.name        = Middleman::CloudFront::PACKAGE
+  s.name        = 'middleman-cloudfront'
   s.version     = Middleman::CloudFront::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Andrey Korzhuev", "Manuel Meurer"]
