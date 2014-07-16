@@ -31,7 +31,7 @@ describe Middleman::Cli::CloudFront do
 
     context 'when the amount of files to invalidate is under the limit' do
       it 'divides them up in packages and creates one invalidation per package' do
-        files = (1..Middleman::Cli::CloudFront::INVALIDATION_LIMIT).map { |i| "file_#{i}" }
+        files = (1..Middleman::Cli::CloudFront::INVALIDATION_LIMIT).map { |i| "/file_#{i}" }
         allow(cloudfront).to receive(:list_files).and_return(files)
         expect(distribution.invalidations).to receive(:create).once.with(paths: files)
         cloudfront.invalidate(options)
@@ -40,7 +40,7 @@ describe Middleman::Cli::CloudFront do
 
     context 'when the amount of files to invalidate is over the limit' do
       it 'creates only one invalidation with all of them' do
-        files = (1..(Middleman::Cli::CloudFront::INVALIDATION_LIMIT * 3)).map { |i| "file_#{i}" }
+        files = (1..(Middleman::Cli::CloudFront::INVALIDATION_LIMIT * 3)).map { |i| "/file_#{i}" }
         allow(cloudfront).to receive(:list_files).and_return(files)
         expect(distribution.invalidations).to receive(:create).once.with(paths: files[0, Middleman::Cli::CloudFront::INVALIDATION_LIMIT])
         expect(distribution.invalidations).to receive(:create).once.with(paths: files[Middleman::Cli::CloudFront::INVALIDATION_LIMIT, Middleman::Cli::CloudFront::INVALIDATION_LIMIT])
