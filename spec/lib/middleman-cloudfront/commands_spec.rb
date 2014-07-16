@@ -56,5 +56,27 @@ describe Middleman::Cli::CloudFront do
         cloudfront.invalidate(options)
       end
     end
+
+    context 'when files to invalidate are explicitly specified' do
+      it 'uses them instead of the files in the build directory' do
+        files = (1..3).map { |i| "/file_#{i}" }
+        expect(distribution.invalidations).to receive(:create).once.with(paths: files)
+        cloudfront.invalidate(options, files)
+      end
+
+      it "doesn't filter them" do
+        files = (1..3).map { |i| "/file_#{i}" }
+        options.filter = /filter that matches no files/
+        expect(distribution.invalidations).to receive(:create).once.with(paths: files)
+        cloudfront.invalidate(options, files)
+      end
+
+      it 'normalizes them' do
+        files = %w(file directory/index.html)
+        normalized_files = %w(/file /directory/index.html /directory/)
+        expect(distribution.invalidations).to receive(:create).once.with(paths: normalized_files)
+        cloudfront.invalidate(options, files)
+      end
+    end
   end
 end

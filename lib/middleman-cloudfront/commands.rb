@@ -19,7 +19,7 @@ module Middleman
       end
 
       desc "invalidate", "A way to deal with your CloudFront distributions"
-      def invalidate(options = nil)
+      def invalidate(options = nil, files = nil)
         if options.nil?
           app_instance = ::Middleman::Application.server.inst
           unless app_instance.respond_to?(:cloudfront_options)
@@ -55,7 +55,7 @@ end
         # CloudFront limits the amount of files which can be invalidated by one request to 1000.
         # If there are more than 1000 files to invalidate, do so sequentially and wait until each validation is ready.
         # If there are max 1000 files, create the invalidation and return immediately.
-        files = normalize_files(list_files(options.filter))
+        files = normalize_files(files || list_files(options.filter))
         return if files.empty?
 
         if files.count <= INVALIDATION_LIMIT
