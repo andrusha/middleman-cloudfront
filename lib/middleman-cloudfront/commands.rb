@@ -55,7 +55,7 @@ end
         # CloudFront limits the amount of files which can be invalidated by one request to 1000.
         # If there are more than 1000 files to invalidate, do so sequentially and wait until each validation is ready.
         # If there are max 1000 files, create the invalidation and return immediately.
-        files = list_files(options.filter)
+        files = normalize_files(list_files(options.filter))
         return if files.empty?
 
         if files.count <= INVALIDATION_LIMIT
@@ -84,18 +84,20 @@ end
 
             # Remove files that do not match filter
             files.reject! { |f| f !~ filter }
-
-            # Add directories of index.html files since they have to be
-            # invalidated as well if :directory_indexes is active
-            files.each do |file|
-              file_dir = file.sub(/\bindex\.html\z/, '')
-              files << file_dir if file_dir != file
-            end
-
-            # Add leading slash
-            files.map! { |f| f.start_with?('/') ? f : "/#{f}" }
           end
         end
+      end
+
+      def normalize_files(files)
+        # Add directories of index.html files since they have to be
+        # invalidated as well if :directory_indexes is active
+        files.each do |file|
+          file_dir = file.sub(/\bindex\.html\z/, '')
+          files << file_dir if file_dir != file
+        end
+
+        # Add leading slash
+        files.map { |f| f.start_with?('/') ? f : "/#{f}" }
       end
 
     end

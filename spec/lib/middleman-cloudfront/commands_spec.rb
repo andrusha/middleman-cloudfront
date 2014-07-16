@@ -29,6 +29,14 @@ describe Middleman::Cli::CloudFront do
       cloudfront.invalidate(options)
     end
 
+    it 'normalizes paths' do
+      files = %w(file directory/index.html)
+      normalized_files = %w(/file /directory/index.html /directory/)
+      allow(cloudfront).to receive(:list_files).and_return(files)
+      expect(distribution.invalidations).to receive(:create).once.with(paths: normalized_files)
+      cloudfront.invalidate(options)
+    end
+
     context 'when the amount of files to invalidate is under the limit' do
       it 'divides them up in packages and creates one invalidation per package' do
         files = (1..Middleman::Cli::CloudFront::INVALIDATION_LIMIT).map { |i| "/file_#{i}" }
