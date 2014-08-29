@@ -32,6 +32,26 @@ activate :cloudfront do |cf|
 end
 ```
 
+On Amazon use following parameters inside your IAM policy:
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1409254980000",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateInvalidation",
+        "cloudfront:GetDistribution"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+```
+
 ## Running
 
 If you set `after_build` to `true` cache would be automatically invalidated after build:  
