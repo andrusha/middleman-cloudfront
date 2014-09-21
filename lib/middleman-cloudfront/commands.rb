@@ -18,7 +18,7 @@ module Middleman
         true
       end
 
-      desc "cloudfront:invalidate", "A way to deal with your CloudFront distributions"
+      desc "invalidate", "A way to deal with your CloudFront distributions"
       def invalidate(options = nil)
         if options.nil?
           app_instance = ::Middleman::Application.server.inst
