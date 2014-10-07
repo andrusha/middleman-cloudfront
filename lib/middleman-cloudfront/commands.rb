@@ -55,7 +55,7 @@ end
         # CloudFront limits the amount of files which can be invalidated by one request to 1000.
         # If there are more than 1000 files to invalidate, do so sequentially and wait until each validation is ready.
         # If there are max 1000 files, create the invalidation and return immediately.
-        files = list_files(options.filter)
+        files = list_files(options.filter).map { |file| URI::encode(file) }
         return if files.empty?
 
         if files.count <= INVALIDATION_LIMIT
