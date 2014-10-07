@@ -64,6 +64,16 @@ Otherwise you should run it through commandline interface like so:
 bundle exec middleman invalidate
 ```
 
+or from within Middleman, optionally specifying a list of files to invalidate:
+
+```ruby
+# Invalidate automatic selection of files from build directory
+invalidate
+
+# Invalidate explicit list of files
+invalidate %w(/index.html /images/example.png)
+```
+
 ## S3 + Cloudfront deploying
 
 In real world this gem shouldn't be used alone, but as a part of your 
@@ -97,4 +107,11 @@ And when I want to deploy my site I do:
 ```bash
 AWS_ACCESS_KEY= AWS_SECRET= bundle exec middleman sync
 AWS_ACCESS_KEY= AWS_SECRET= bundle exec middleman invalidate
+```
+
+If you use [middleman-s3_sync](https://github.com/fredjean/middleman-s3_sync) for deployment, you can use its `after_s3_sync` hook to automatically invalidate updated files after syncing:
+```ruby
+after_s3_sync do |files_by_status|
+  invalidate files_by_status[:updated]
+end
 ```

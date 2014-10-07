@@ -19,7 +19,7 @@ module Middleman
       end
 
       desc "invalidate", "A way to deal with your CloudFront distributions"
-      def invalidate(options = nil)
+      def invalidate(options = nil, files = nil)
         if options.nil?
           app_instance = ::Middleman::Application.server.inst
           unless app_instance.respond_to?(:cloudfront_options)
@@ -55,7 +55,7 @@ end
         # CloudFront limits the amount of files which can be invalidated by one request to 1000.
         # If there are more than 1000 files to invalidate, do so sequentially and wait until each validation is ready.
         # If there are max 1000 files, create the invalidation and return immediately.
-        files = list_files(options.filter).map { |file| URI::encode(file) }
+        files = normalize_files(files || list_files(options.filter))
         return if files.empty?
 
         if files.count <= INVALIDATION_LIMIT
@@ -84,18 +84,17 @@ end
 
             # Remove files that do not match filter
             files.reject! { |f| f !~ filter }
-
-            # Add directories of index.html files since they have to be
-            # invalidated as well if :directory_indexes is active
-            files.each do |file|
-              file_dir = file.sub(/\bindex\.html\z/, '')
-              files << file_dir if file_dir != file
-            end
-
-            # Add leading slash
-            files.map! { |f| f.start_with?('/') ? f : "/#{f}" }
           end
         end
+      end
+
+      def normalize_files(files)
+        # Add directories since they have to be invalidated
+        # as well if :directory_indexes is active
+        files += files.map(&File.method(:dirname)).uniq
+
+        # URI encode and add leading slash
+        files.map { |f| URI::encode(f.start_with?('/') ? f : "/#{f}") }
       end
 
     end
