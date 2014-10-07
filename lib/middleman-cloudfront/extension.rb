@@ -26,6 +26,10 @@ module Middleman
       def cloudfront_options
         ::Middleman::CloudFront.options
       end
+
+      def invalidate(files = nil)
+        ::Middleman::Cli::CloudFront.new.invalidate(cloudfront_options, files)
+      end
     end
 
   end
