@@ -91,7 +91,7 @@ end
       def normalize_files(files)
         # Add directories since they have to be invalidated
         # as well if :directory_indexes is active
-        files += files.map(&File.method(:dirname)).uniq
+        files += files.grep(/\/index.html\z/).map { |file| File.dirname(file) << '/' }.uniq
 
         # URI encode and add leading slash
         files.map { |f| URI::encode(f.start_with?('/') ? f : "/#{f}") }
