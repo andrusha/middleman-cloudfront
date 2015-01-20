@@ -9,6 +9,12 @@ module Middleman
       include Thor::Actions
 
       INVALIDATION_LIMIT = 1000
+      INDEX_REGEX = /
+        \A
+          (.*\/)?
+          index\.html
+        \z
+      /ix
 
       check_unknown_options!
 
@@ -91,7 +97,9 @@ end
       def normalize_files(files)
         # Add directories since they have to be invalidated
         # as well if :directory_indexes is active
-        files += files.grep(/\/index.html\z/).map { |file| File.dirname(file) << '/' }.uniq
+        files += files.grep(INDEX_REGEX).map do |file|
+          file == 'index.html' ? '/' : File.dirname(file) << '/'
+        end.uniq
 
         # URI encode and add leading slash
         files.map { |f| URI::encode(f.start_with?('/') ? f : "/#{f}") }
