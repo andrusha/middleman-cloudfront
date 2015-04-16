@@ -50,11 +50,21 @@ end
         end
 
         puts "## Invalidating files on CloudFront"
-        cdn = Fog::CDN.new({
-          :provider               => 'AWS',
-          :aws_access_key_id      => options.access_key_id,
-          :aws_secret_access_key  => options.secret_access_key
-        })
+
+        fog_options = {
+          :provider => 'AWS'
+        }
+
+        if options.access_key_id && options.secret_access_key
+          fog_options.merge!({
+            :aws_access_key_id      => options.access_key_id,
+            :aws_secret_access_key  => options.secret_access_key
+          })
+        else
+          fog_options.merge!({:use_iam_profile => true})
+        end
+
+        cdn = Fog::CDN.new(fog_options)
 
         distribution = cdn.distributions.get(options.distribution_id)
 
