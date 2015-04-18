@@ -45,7 +45,7 @@ end
           options = app_instance.cloudfront_options
         end
         options.filter ||= /.*/
-        [:access_key_id, :secret_access_key, :distribution_id, :filter].each do |key|
+        [:distribution_id, :filter].each do |key|
           raise StandardError, "Configuration key #{key} is missing." if options.public_send(key).nil?
         end
 
