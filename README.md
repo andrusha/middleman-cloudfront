@@ -109,9 +109,3 @@ AWS_ACCESS_KEY= AWS_SECRET= bundle exec middleman sync
 AWS_ACCESS_KEY= AWS_SECRET= bundle exec middleman invalidate
 ```
 
-If you use [middleman-s3_sync](https://github.com/fredjean/middleman-s3_sync) for deployment, you can use its `after_s3_sync` hook to automatically invalidate updated files after syncing:
-```ruby
-after_s3_sync do |files_by_status|
-  invalidate files_by_status[:updated]
-end
-```
