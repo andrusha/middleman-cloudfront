@@ -1,5 +1,5 @@
 module Middleman
   module CloudFront
-    VERSION = '0.2.1'
+    VERSION = '4.0.0'
   end
 end

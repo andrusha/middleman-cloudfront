@@ -30,10 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '>= 0.9.0'
   s.add_development_dependency 'rspec', '~> 3.0'
 
-  if RUBY_VERSION <= '1.9.2'
-    s.add_dependency 'middleman-core', '~> 3.0', '<= 3.2.0'
-    s.add_development_dependency 'activesupport', '< 4.0.0'
-  else
-    s.add_dependency 'middleman-core', '~> 3.0'
-  end
+  s.add_dependency 'middleman-core', '>= 4.0.0'
+  s.add_dependency 'middleman-cli', '>= 4.0.0'
+
 end

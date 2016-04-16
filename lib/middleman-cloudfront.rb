@@ -1,7 +1,6 @@
-require 'middleman-core'
-require 'middleman-cloudfront/commands'
+require 'pathname' # for some reason, had to require this because middleman-core 4.1.7 did not.
+require 'middleman-cloudfront/extension'
 
-::Middleman::Extensions.register(:cloudfront, ">= 3.0.0") do
-  require "middleman-cloudfront/extension"
-  ::Middleman::CloudFront
+::Middleman::Extensions.register :cloudfront do
+  ::Middleman::CloudFront::Extension
 end
