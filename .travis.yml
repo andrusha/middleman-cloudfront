@@ -1,4 +1,10 @@
-sudo: false
+# cannot use container because jruby requires native extensions
+#sudo: false
+
+# must update bundler because older versions of ruby are packaged with a buggy bundler: https://github.com/travis-ci/travis-ci/issues/3531
+before_install:
+  - gem update bundler
+
 language: ruby
 rvm:
   - 2.0
