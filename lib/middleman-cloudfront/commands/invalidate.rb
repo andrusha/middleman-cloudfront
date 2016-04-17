@@ -24,13 +24,22 @@ module Middleman
         end
 
         def invalidate(options = nil, files = nil)
-          app = ::Middleman::Application.new do
-            config[:mode] = :config
-            config[:exit_before_ready] = true
-            config[:watcher_disable] = true
-            config[:disable_sitemap] = true
+
+          # If called via commandline, discover config (from bin/middleman)
+          if options.nil?
+            app = ::Middleman::Application.new do
+              config[:mode] = :config
+              config[:exit_before_ready] = true
+              config[:watcher_disable] = true
+              config[:disable_sitemap] = true
+            end
+
+            # Get the options from the cloudfront extension
+            extension = app.extensions[:cloudfront]
+            unless extension.nil?
+              options = extension[options[:cloudfront]]
+            end
           end
-          config = app.config
 
           if options.nil?
             configuration_usage
