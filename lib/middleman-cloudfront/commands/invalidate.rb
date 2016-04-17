@@ -37,7 +37,7 @@ module Middleman
             # Get the options from the cloudfront extension
             extension = app.extensions[:cloudfront]
             unless extension.nil?
-              options = extension[options[:cloudfront]]
+              options = extension.options
             end
           end
 
