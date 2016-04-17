@@ -1,13 +1,15 @@
-# cannot use container because jruby requires native extensions
-#sudo: false
-
-# must update bundler because older versions of ruby are packaged with a buggy bundler: https://github.com/travis-ci/travis-ci/issues/3531
 before_install:
   - gem update bundler
 
 language: ruby
+sudo: false
+cache: bundler
+# must update bundler because older versions of ruby are packaged with a buggy bundler: https://github.com/travis-ci/travis-ci/issues/3531
+before_script:
+  - bundle update
 rvm:
-  - 2.0
+  - ruby-head
+  - 2.3.0
+  - 2.2.4
   - 2.1
-  - 2.2
-  - jruby
+  - 2.0
