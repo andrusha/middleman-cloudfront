@@ -1,6 +1,6 @@
 require 'middleman-cli'
 require 'middleman-cloudfront/extension'
-require 'fog'
+require 'fog/aws'
 
 module Middleman
   module Cli
