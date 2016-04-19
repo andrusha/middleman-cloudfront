@@ -15,8 +15,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Invalidate CloudFront cache after deployment to S3}
   s.description = %q{Adds ability to invalidate a specific set of files in your CloudFront cache}
 
-  s.rubyforge_project = "middleman-cloudfront"
-
   s.files         = `git ls-files -z`.split("\0")
   s.test_files    = `git ls-files -z -- {fixtures,features}/*`.split("\0")
   s.require_paths = ["lib"]
