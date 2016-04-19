@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -z -- {fixtures,features}/*`.split("\0")
   s.require_paths = ["lib"]
 
-  s.add_dependency 'fog', '~> 1.9'
+  s.add_dependency 'fog-aws', '~> 0.9'
 
   s.add_development_dependency 'cucumber', '~> 1.3'
   s.add_development_dependency 'aruba', '~> 0.5'
