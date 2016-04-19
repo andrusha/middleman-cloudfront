@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -z -- {fixtures,features}/*`.split("\0")
   s.require_paths = ["lib"]
 
+  s.required_ruby_version = '>= 2.0.0'
+
   s.add_dependency 'fog', '~> 1.9'
 
   s.add_development_dependency 'cucumber', '~> 1.3'
