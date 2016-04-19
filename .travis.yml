@@ -5,3 +5,5 @@ rvm:
   - 2.1
   - 2.2
   - jruby
+sudo: false
+cache: bundler
