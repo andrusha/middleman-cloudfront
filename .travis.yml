@@ -3,5 +3,8 @@ rvm:
   - 2.1
   - 2.2
   - jruby
+matrix:
+  allow_failures:
+    - rvm: jruby
 sudo: false
 cache: bundler
