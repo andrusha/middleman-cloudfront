@@ -21,19 +21,10 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.0.0'
 
-  s.add_dependency 'fog', '~> 1.9'
-
-  s.add_development_dependency 'cucumber', '~> 1.3'
-  s.add_development_dependency 'aruba', '~> 0.5'
-  s.add_development_dependency 'fivemat', '~> 1.3'
-  s.add_development_dependency 'simplecov', '~> 0.8'
   s.add_development_dependency 'rake', '>= 0.9.0'
   s.add_development_dependency 'rspec', '~> 3.0'
 
-  if RUBY_VERSION <= '1.9.2'
-    s.add_dependency 'middleman-core', '~> 3.0', '<= 3.2.0'
-    s.add_development_dependency 'activesupport', '< 4.0.0'
-  else
-    s.add_dependency 'middleman-core', '~> 3.0'
-  end
+  s.add_dependency 'fog-aws', '~> 0.9'
+  s.add_dependency 'middleman-core', '>= 4.0'
+  s.add_dependency 'middleman-cli', '>= 4.0'
 end
