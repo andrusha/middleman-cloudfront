@@ -1,12 +1,11 @@
 language: ruby
 sudo: false
 cache: bundler
-# must update bundler because older versions of ruby are packaged with a buggy bundler: https://github.com/travis-ci/travis-ci/issues/3531
 before_script:
-  - bundle update
+  - gem update --system
+  - gem update bundler
 rvm:
-  - ruby-head
-  - 2.3.0
-  - 2.2.4
-  - 2.1
   - 2.0
+  - 2.1
+  - 2.2
+  - 2.3

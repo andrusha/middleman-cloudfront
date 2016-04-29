@@ -2,11 +2,11 @@ require 'spec_helper'
 
 require 'fog/aws/models/cdn/distributions'
 
-describe ::Middleman::Cli::CloudFront::Invalidate do
+describe Middleman::Cli::CloudFront::Invalidate do
   INVALIDATION_LIMIT = Middleman::Cli::CloudFront::Invalidate::INVALIDATION_LIMIT
   let(:cloudfront) { described_class.new }
   let(:options) do
-    config = ::Middleman::Configuration::ConfigurationManager.new
+    config = Middleman::Configuration::ConfigurationManager.new
     config.access_key_id ='access_key_id_123'
     config.secret_access_key = 'secret_access_key_123'
     config.distribution_id = 'distribution_id_123'

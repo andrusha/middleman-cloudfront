@@ -11,11 +11,11 @@ module Middleman
 
         INVALIDATION_LIMIT = 1000
         INDEX_REGEX = /
-        \A
-          (.*\/)?
-          index\.html
-        \z
-      /ix
+          \A
+            (.*\/)?
+            index\.html
+          \z
+        /ix
 
         check_unknown_options!
 
@@ -27,7 +27,7 @@ module Middleman
 
           # If called via commandline, discover config (from bin/middleman)
           if options.nil?
-            app = ::Middleman::Application.new do
+            app = Middleman::Application.new do
               config[:mode] = :config
               config[:exit_before_ready] = true
               config[:watcher_disable] = true
@@ -52,17 +52,19 @@ module Middleman
           puts '## Invalidating files on CloudFront'
 
           fog_options = {
-              :provider => 'AWS'
+            :provider => 'AWS'
           }
 
-          if options.access_key_id && options.secret_access_key
-            fog_options.merge!({
-                                   :aws_access_key_id => options.access_key_id,
-                                   :aws_secret_access_key => options.secret_access_key
-                               })
-          else
-            fog_options.merge!({:use_iam_profile => true})
-          end
+          fog_options.merge!(
+            if options.access_key_id && options.secret_access_key
+              {
+                :aws_access_key_id     => options.access_key_id,
+                :aws_secret_access_key => options.secret_access_key
+              }
+            else
+              { :use_iam_profile => true }
+            end
+          )
 
           cdn = Fog::CDN.new(fog_options)
 
