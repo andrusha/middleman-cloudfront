@@ -18,12 +18,12 @@ module Middleman
       end
 
       def after_build
-        Middleman::Cli::CloudFront.new.invalidate(options) if options.after_build
+        Middleman::Cli::CloudFront::Invalidate.new.invalidate(options) if options.after_build
       end
 
       helpers do
         def invalidate(files = nil)
-          Middleman::Cli::CloudFront.new.invalidate(options, files)
+          Middleman::Cli::CloudFront::Invalidate.new.invalidate(options, files)
         end
       end
     end
