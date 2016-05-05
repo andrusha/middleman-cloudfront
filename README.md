@@ -1,4 +1,4 @@
-# Middleman CloudFront [![Build Status](https://travis-ci.org/andrusha/middleman-cloudfront.png)](https://travis-ci.org/andrusha/middleman-cloudfront) [![Dependency Status](https://gemnasium.com/andrusha/middleman-cloudfront.png)](https://gemnasium.com/andrusha/middleman-cloudfront) [![Code Climate](https://codeclimate.com/github/andrusha/middleman-cloudfront.png)](https://codeclimate.com/github/andrusha/middleman-cloudfront)
+# Middleman CloudFront [![Build Status](https://travis-ci.org/andrusha/middleman-cloudfront.svg?branch=master)](https://travis-ci.org/andrusha/middleman-cloudfront) [![Dependency Status](https://gemnasium.com/andrusha/middleman-cloudfront.png)](https://gemnasium.com/andrusha/middleman-cloudfront) [![Code Climate](https://codeclimate.com/github/andrusha/middleman-cloudfront.png)](https://codeclimate.com/github/andrusha/middleman-cloudfront)
 A deploying tool for middleman which allows you to interact with Amazon CloudFront.
 Some of its features are:  
 
