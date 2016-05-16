@@ -25,6 +25,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.0'
 
   s.add_dependency 'fog-aws', '~> 0.9'
-  s.add_dependency 'middleman-core', '>= 4.0'
-  s.add_dependency 'middleman-cli', '>= 4.0'
+  s.add_dependency 'middleman-core', '>= 3.0'
+  s.add_dependency 'middleman-cli', '>= 3.0'
 end
