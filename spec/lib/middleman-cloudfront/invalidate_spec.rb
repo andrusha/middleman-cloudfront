@@ -78,4 +78,12 @@ describe Middleman::Cli::CloudFront::Invalidate do
       cloudfront.invalidate(options, files)
     end
   end
+
+  context 'when the distribution_id is invalid' do
+    it 'it raise_error' do
+      #fog will return nil if the distribution_id is invalid
+      allow_any_instance_of(Fog::CDN::AWS::Distributions).to receive(:get).and_return(nil)
+      expect { cloudfront.invalidate(options) }.to raise_error(StandardError, "Cannot access Distribution with id distribution_id_123.")
+    end
+  end
 end
