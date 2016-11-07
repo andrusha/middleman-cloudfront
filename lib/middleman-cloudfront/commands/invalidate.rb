@@ -70,6 +70,9 @@ module Middleman
 
           distribution = cdn.distributions.get(options.distribution_id)
 
+          raise StandardError, "Cannot access Distribution with id #{options.distribution_id}." if distribution.nil?
+
+
           # CloudFront limits the amount of files which can be invalidated by one request to 1000.
           # If there are more than 1000 files to invalidate, do so sequentially and wait until each validation is ready.
           # If there are max 1000 files, create the invalidation and return immediately.
