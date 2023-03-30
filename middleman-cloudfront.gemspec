@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '>= 0.9.0'
   s.add_development_dependency 'rspec', '~> 3.0'
 
+  s.add_dependency 'addressable', '>= 2.8.1'
   s.add_dependency 'fog-aws', '>= 0.1.1'
   s.add_dependency 'middleman-core', '>= 3.0'
   s.add_dependency 'middleman-cli', '>= 3.0'
